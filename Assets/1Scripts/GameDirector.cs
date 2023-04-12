@@ -9,8 +9,12 @@ public class GameDirector : MonoBehaviour
     GameObject timerText;
     GameObject pointText;
     float time = 30.0f;
-    int point = 0;
+    public static int point = 0;
     GameObject generator;
+
+    public GameObject GameOverPanel;
+    public Text PointLabel;
+    public Button ReplayBtn;
 
     public void GetApple()
     {
@@ -25,6 +29,9 @@ public class GameDirector : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Time.timeScale = 1.0f;  // Ω√¿€
+        point = 0;
+
         generator = GameObject.Find("ItemGenerator");
         timerText = GameObject.Find("Timer");
         pointText = GameObject.Find("Point");
@@ -38,6 +45,11 @@ public class GameDirector : MonoBehaviour
         {
             time = 0;
             generator.GetComponent<ItemGenerator>().SetParameter(1000.0f, 0, 0);
+
+            GameOverPanel.SetActive(true);
+            PointLabel.text = "»πµÊ¡°ºˆ : " + point.ToString();
+            Time.timeScale = 0.0f;  // ¿œΩ√ ¡§¡ˆ
+
         }
         else if(0 <= time && time < 5)
         {
@@ -58,5 +70,6 @@ public class GameDirector : MonoBehaviour
 
         timerText.GetComponent<Text>().text = time.ToString("F1");
         pointText.GetComponent<Text>().text = point.ToString() + " Point";
+
     }
 }

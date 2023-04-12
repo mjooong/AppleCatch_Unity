@@ -11,17 +11,22 @@ public class ItemGenerator : MonoBehaviour
     int ratio = 2;
     float speed = -0.03f;
 
+    ParticleSystem m_System;
+    ParticleSystem.Particle[] m_Particles;
+
+
     public void SetParameter(float span, float speed, int ratio)
     {       // 난이도 조절
-        span = span;    // 생성 속도
-        speed = speed;  // 낙하 속도
-        ratio = ratio;  // 폭탄 비율
+        this.span = span;    // 생성 속도
+        this.speed = speed;  // 낙하 속도
+        this.ratio = ratio;  // 폭탄 비율
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        m_System = GetComponent<ParticleSystem>();
+        m_Particles = new ParticleSystem.Particle[m_System.main.maxParticles];
     }
 
     // Update is called once per frame
@@ -40,11 +45,13 @@ public class ItemGenerator : MonoBehaviour
             else
             {
                 item = Instantiate(applePrefab) as GameObject;
+                
             }
             float x = Random.Range(-1, 2);  // -1 ~ 1 랜덤값
             float z = Random.Range(-1, 2);
             item.transform.position = new Vector3(x, 4, z);
             item.GetComponent<ItemController>().dropSpeed = speed;  // 난이도 조절
         }
-    }
+    }// void Update()
+
 }

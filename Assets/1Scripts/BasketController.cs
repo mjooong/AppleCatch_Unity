@@ -44,17 +44,36 @@ public class BasketController : MonoBehaviour
     {
         if(other.gameObject.tag == "Apple")
         {
-            director.GetComponent<GameDirector>().GetApple();
             //Debug.Log(" Tag = Apple");
+            director.GetComponent<GameDirector>().GetApple();       // 점수 획득
             aud.PlayOneShot(appleSE);
+
+            //var AAA = 123;          // int 확정
+            //var BBB = 3.14f;        // float 확정
+            //var CCC = "안녕하세요";  // string형
+            //var DDD = true;         // bool형
+
+            // particle Color 설정
+            var main = GetComponent<ParticleSystem>().main;
+            main.startColor = Color.white;                          // new Color(1.0f, 1.0f, 1.0f);
+            
         }
         else
         {
-            director.GetComponent<GameDirector>().GetBomb();
             //Debug.Log(" Tag = Bomb");
+            director.GetComponent<GameDirector>().GetBomb();        //  점수 감소
             aud.PlayOneShot(bombSE);
+
+            // particle Color 설정
+            var main = GetComponent<ParticleSystem>().main;
+            main.startColor = Color.black;                          // new Color(0.0f, 0.0f, 1.0f);
         }
+
+        // 파티클 실행
+        this.GetComponent<ParticleSystem>().Play();     
+
         //Debug.Log("잡았다");
         Destroy(other.gameObject);
     }
+
 }
