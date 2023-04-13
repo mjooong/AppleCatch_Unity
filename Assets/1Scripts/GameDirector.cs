@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
@@ -8,8 +10,8 @@ public class GameDirector : MonoBehaviour
 {
     GameObject timerText;
     GameObject pointText;
-    float time = 30.0f;
-    public static int point = 0;
+    [HideInInspector] public float time = 30.0f;
+    int point = 0;
     GameObject generator;
 
     public GameObject GameOverPanel;
@@ -35,6 +37,14 @@ public class GameDirector : MonoBehaviour
         generator = GameObject.Find("ItemGenerator");
         timerText = GameObject.Find("Timer");
         pointText = GameObject.Find("Point");
+
+        if (ReplayBtn != null)
+            ReplayBtn.onClick.AddListener(ReplayBtnClick);
+    }
+
+    private void ReplayBtnClick()
+    {
+        SceneManager.LoadScene("GameScene");
     }
 
     // Update is called once per frame
